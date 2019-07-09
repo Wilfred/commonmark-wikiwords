@@ -8,6 +8,9 @@ module.exports = {
   plugins: ["jest"],
   rules: {
     "linebreak-style": ["error", "unix"],
+    "no-alert": "warn",
+    "no-console": "warn",
+    "no-debugger": "warn",
     "no-var": "error",
     "prefer-const": "error",
     semi: ["error", "always"]

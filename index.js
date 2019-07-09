@@ -1,13 +1,13 @@
 const commonmark = require("commonmark");
 
 function textNode(text) {
-  var node = new commonmark.Node("text", undefined);
+  let node = new commonmark.Node("text", undefined);
   node.literal = text;
   return node;
 }
 
 function linkNode(text, url) {
-  var urlNode = new commonmark.Node("link", undefined);
+  let urlNode = new commonmark.Node("link", undefined);
   urlNode.destination = url;
   urlNode.appendChild(textNode(text));
 
@@ -16,19 +16,19 @@ function linkNode(text, url) {
 
 // Regexp must be sticky.
 function splitMatches(text, regexp) {
-  var i = 0;
-  var result = [];
+  let i = 0;
+  let result = [];
 
-  var match = regexp.exec(text);
+  let match = regexp.exec(text);
   while (match) {
     if (match.index > i) {
       result.push([text.substring(i, match.index), false]);
     }
 
-    var found = match[0];
+    let found = match[0];
     result.push([found, true]);
 
-    var matchStart = match.index;
+    let matchStart = match.index;
     i = matchStart + found.length;
 
     match = regexp.exec(text);
@@ -46,7 +46,7 @@ function splitMatches(text, regexp) {
 const wikiWordsRegexp = /( |^)[A-Z]\w*[a-z]\w*[A-Z]\w*/gm;
 
 function splitWikiWordLinks(node) {
-  var parts = splitMatches(node.literal, wikiWordsRegexp);
+  let parts = splitMatches(node.literal, wikiWordsRegexp);
 
   return parts.map(part => {
     if (part[1]) {
@@ -58,8 +58,8 @@ function splitWikiWordLinks(node) {
 }
 
 function transform(parsed) {
-  var walker = parsed.walker();
-  var event, node;
+  let walker = parsed.walker();
+  let event, node;
 
   while ((event = walker.next())) {
     node = event.node;

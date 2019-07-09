@@ -12,5 +12,8 @@
     "wikiwords"
   ],
   "author": "Wilfred Hughes <me@wilfred.me.uk>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "commonmark": "^0.29.0"
+  }
 }

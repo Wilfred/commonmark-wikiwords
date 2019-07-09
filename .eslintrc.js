@@ -4,7 +4,8 @@ module.exports = {
     jest: true,
     node: true
   },
-  extends: "eslint:recommended",
+  extends: ["eslint:recommended", "plugin:jest/style"],
+  plugins: ["jest"],
   rules: {
     "linebreak-style": ["error", "unix"],
     "no-var": "error",

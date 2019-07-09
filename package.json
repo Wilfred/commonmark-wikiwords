@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint . -f codeframe --fix",
     "test": "jest",
-    "test-circleci": "jest --ci --runInBand --reporters=default --reporters=jest-junit"
+    "test-circleci": "jest --ci --runInBand --reporters=default --reporters=jest-junit --collectCoverage=true"
   },
   "jest-junit": {
     "output": "./test-results/junit/results.xml"

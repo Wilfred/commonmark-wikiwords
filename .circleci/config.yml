@@ -36,7 +36,9 @@ jobs:
 
       - run:
           name: Test
-          command: npm run test-circleci
+          command: |
+            mkdir -p ./test-results/junit
+            npm run test-circleci
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 

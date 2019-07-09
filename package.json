@@ -4,7 +4,7 @@
   "description": "Convert WikiWords to links in commonmark source",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint . -f codeframe",
+    "lint": "eslint . -f codeframe --fix",
     "test": "jest"
   },
   "keywords": [

@@ -40,14 +40,10 @@ jobs:
             mkdir -p ./test-results/junit
             npm run test-circleci
           environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
-
-      - run: ls
-      - run: ls -R test-results
-      - run: ls -R reports
+            JEST_JUNIT_OUTPUT: "test-results/jest/junit.xml"
 
       - store_artifacts:
-          path: ./test-results/junit
+          path: ./test-results/jest
       - store_test_results:
           path: ./test-results
 

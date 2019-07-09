@@ -39,6 +39,12 @@ jobs:
           command: npm run test-circleci
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+
+      - store_artifacts:
+          path: ./test-results/junit
+      - store_test_results:
+          path: ./test-results
+
       - run:
           name: Lint
           command: npm run lint -- --ignore-pattern node_modules

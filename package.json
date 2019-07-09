@@ -8,6 +8,9 @@
     "test": "jest",
     "test-circleci": "jest --ci --runInBand --reporters=default --reporters=jest-junit"
   },
+  "jest-junit": {
+    "output": "./test-results/junit/results.xml"
+  },
   "keywords": [
     "commonmark",
     "wiki",

@@ -42,6 +42,9 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 
+      - run: ls
+      - run: ls test-results
+
       - store_artifacts:
           path: ./test-results/junit
       - store_test_results:

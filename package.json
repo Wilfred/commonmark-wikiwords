@@ -1,0 +1,16 @@
+{
+  "name": "commonmark-wikiwords",
+  "version": "1.0.0",
+  "description": "Convert WikiWords to links in commonmark source",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "commonmark",
+    "wiki",
+    "wikiwords"
+  ],
+  "author": "Wilfred Hughes <me@wilfred.me.uk>",
+  "license": "ISC"
+}

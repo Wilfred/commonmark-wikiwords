@@ -4,8 +4,9 @@
 #
 version: 2.1
 
-orbs:
-  codecov: codecov/codecov@1.0.4
+# https://circleci.com/orbs/registry/orb/codecov/codecov
+# orbs:
+#   codecov: codecov/codecov@1.0.5
 
 jobs:
   build:
@@ -55,5 +56,5 @@ jobs:
           name: Lint
           command: npm run lint
 
-      - codecov/upload:
-          file: coverage/*.json
+      # - codecov/upload:
+      #     file: coverage/*.json

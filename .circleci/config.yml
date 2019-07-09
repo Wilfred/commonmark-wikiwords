@@ -47,4 +47,4 @@ jobs:
 
       - run:
           name: Lint
-          command: npm run lint -- --ignore-pattern node_modules
+          command: npm run lint

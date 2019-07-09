@@ -17,6 +17,7 @@
     "wikiwords"
   ],
   "author": "Wilfred Hughes <me@wilfred.me.uk>",
+  "repository": "https://github.com/Wilfred/commonmark-wikiwords",
   "license": "ISC",
   "dependencies": {
     "commonmark": "^0.29.0"

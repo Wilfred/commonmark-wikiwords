@@ -2,3 +2,18 @@
 
 This package offers an AST transformer for adding WikiWords syntax to
 CommonMark.
+
+## Usage
+
+```javascript
+var commonmark = require("commonmark");
+var wikiWordsTransform = require("commonmark-wikiwords");
+
+var reader = new commonmark.Parser();
+var writer = new commonmark.HtmlRenderer();
+
+var parsed = reader.parse(src);
+var transformed = wikiWordsTransform(parsed);
+
+var htmlSrc = writer.render(transformed);
+```

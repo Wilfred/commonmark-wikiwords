@@ -41,5 +41,5 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
       - run:
-          name: lint
-          command: npm run lint
+          name: Lint
+          command: npm run lint -- --ignore-pattern node_modules

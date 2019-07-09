@@ -19,6 +19,12 @@ test("Basic WikiWord", () => {
   );
 });
 
+test("WikiWord in prose", () => {
+  expect(transformAndRender("Hello WikiWord")).toBe(
+    '<p>Hello <a href="WikiWord">WikiWord</a></p>'
+  );
+});
+
 test("Acronyms aren't wikiwords", () => {
   expect(transformAndRender("ABC")).toBe("<p>ABC</p>");
 });

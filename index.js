@@ -21,15 +21,16 @@ function splitMatches(text, regexp) {
 
   let match = regexp.exec(text);
   while (match) {
-    if (match.index > i) {
-      result.push([text.substring(i, match.index), false]);
+    const prefix = match[1];
+    const matchText = match[2];
+
+    const matchTextStart = match.index + prefix.length;
+    if (matchTextStart > i) {
+      result.push([text.substring(i, matchTextStart), false]);
     }
 
-    const found = match[0];
-    result.push([found, true]);
-
-    const matchStart = match.index;
-    i = matchStart + found.length;
+    result.push([matchText, true]);
+    i = matchTextStart + matchText.length;
 
     match = regexp.exec(text);
   }
@@ -43,7 +44,7 @@ function splitMatches(text, regexp) {
 
 // WikiWords must start with a capital, include at least two capitals,
 // and must include at least one lower case letter inbetween.
-const wikiWordsRegexp = /( |^)[A-Z]\w*[a-z]\w*[A-Z]\w*/gm;
+const wikiWordsRegexp = /( |^)([A-Z]\w*[a-z]\w*[A-Z]\w*)/gm;
 
 function splitWikiWordLinks(node) {
   const parts = splitMatches(node.literal, wikiWordsRegexp);

@@ -25,6 +25,22 @@ test("WikiWord in prose", () => {
   );
 });
 
+test("WikiWord in bold", () => {
+  expect(transformAndRender("**WikiWord**")).toBe(
+    '<p><strong><a href="WikiWord">WikiWord</a></strong></p>'
+  );
+});
+
+test("No WikiWord in code block", () => {
+  expect(transformAndRender("```\nWikiWord\n```")).toBe(
+    "<pre><code>WikiWord\n</code></pre>"
+  );
+});
+
+test("No WikiWord in inline code", () => {
+  expect(transformAndRender("`WikiWord`")).toBe("<p><code>WikiWord</code></p>");
+});
+
 test("Acronyms aren't wikiwords", () => {
   expect(transformAndRender("ABC")).toBe("<p>ABC</p>");
 });

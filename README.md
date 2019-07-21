@@ -17,3 +17,18 @@ var transformed = wikiWordsTransform(parsed);
 
 var htmlSrc = writer.render(transformed);
 ```
+
+## WikiWord Syntax
+
+This package has a looser definition of WikiWords.
+
+In addition to `FooBar` and `FooBarBaz`, it supports `FooBBar` and
+`FooB`.
+
+This follow the [exact definition of WikiCase on C2
+Wiki](http://wiki.c2.com/?WikiCase), which does not allow these. If
+strict compliance is useful, please file a bug.
+
+To avoid forming wikiwords, [C2 suggests embedding an empty
+string](http://wiki.c2.com/?SixSingleQuotes). You can do something
+similar in commonmark: `Foo<!-- -->Bar`.

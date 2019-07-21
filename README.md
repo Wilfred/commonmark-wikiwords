@@ -7,13 +7,13 @@ CommonMark.
 
 ```javascript
 var commonmark = require("commonmark");
-var wikiWordsTransform = require("commonmark-wikiwords");
+var wikiwords = require("commonmark-wikiwords");
 
 var reader = new commonmark.Parser();
 var writer = new commonmark.HtmlRenderer();
 
 var parsed = reader.parse(src);
-var transformed = wikiWordsTransform(parsed);
+var transformed = wikiwords.transform(parsed);
 
 var htmlSrc = writer.render(transformed);
 ```

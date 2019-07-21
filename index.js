@@ -46,6 +46,17 @@ function splitMatches(text, regexp) {
 // and must include at least one lower case letter inbetween.
 const wikiWordsRegexp = /( |^)([A-Z]\w*[a-z]\w*[A-Z]\w*)/gm;
 
+function isWikiWord(s) {
+  const match = wikiWordsRegexp.exec(s);
+  if (match === null) {
+    return false;
+  }
+
+  const prefix = match[1];
+  const matchTextStart = match.index + prefix.length;
+  return matchTextStart === 0;
+}
+
 function splitWikiWordLinks(node) {
   const parts = splitMatches(node.literal, wikiWordsRegexp);
 
@@ -75,4 +86,7 @@ function transform(parsed) {
   return parsed;
 }
 
-module.exports = transform;
+module.exports = {
+  isWikiWord,
+  transform
+};

@@ -1,5 +1,6 @@
 const commonmark = require("commonmark");
-const transform = require("./index");
+const isWikiWord = require("./index").isWikiWord;
+const transform = require("./index").transform;
 
 function transformAndRender(src) {
   const reader = new commonmark.Parser();
@@ -43,4 +44,18 @@ test("No WikiWord in inline code", () => {
 
 test("Acronyms aren't wikiwords", () => {
   expect(transformAndRender("ABC")).toBe("<p>ABC</p>");
+});
+
+describe("isWikiWord", () => {
+  test("FooBar", () => {
+    expect(isWikiWord("FooBar")).toBeTruthy();
+  });
+
+  test("abc", () => {
+    expect(isWikiWord("abc")).toBeFalsy();
+  });
+
+  test("leading whitespace", () => {
+    expect(isWikiWord(" FooBar")).toBeFalsy();
+  });
 });

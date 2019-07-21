@@ -48,6 +48,10 @@ describe("transform", () => {
   test("Acronyms aren't wikiwords", () => {
     expect(transformAndRender("ABC")).toBe("<p>ABC</p>");
   });
+
+  test("Trailing numbers aren't wikiwords", () => {
+    expect(transformAndRender("FooBar1")).toBe("<p>FooBar1</p>");
+  });
 });
 
 describe("isWikiWord", () => {

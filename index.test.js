@@ -55,20 +55,24 @@ describe("transform", () => {
 });
 
 describe("isWikiWord", () => {
-  test("FooBar", () => {
+  test("Yes: FooBar", () => {
     expect(isWikiWord("FooBar")).toBeTruthy();
   });
 
-  test("is a pure function", () => {
-    expect(isWikiWord("FooBar")).toBeTruthy();
-    expect(isWikiWord("FooBar")).toBeTruthy();
-  });
-
-  test("abc", () => {
+  test("No: abc", () => {
     expect(isWikiWord("abc")).toBeFalsy();
   });
 
-  test("leading whitespace", () => {
+  test("No: ABC", () => {
+    expect(isWikiWord("abc")).toBeFalsy();
+  });
+
+  test("No: leading whitespace", () => {
     expect(isWikiWord(" FooBar")).toBeFalsy();
+  });
+
+  test("should be a pure function", () => {
+    expect(isWikiWord("FooBar")).toBeTruthy();
+    expect(isWikiWord("FooBar")).toBeTruthy();
   });
 });

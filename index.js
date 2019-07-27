@@ -14,8 +14,10 @@ function linkNode(text, url) {
   return urlNode;
 }
 
-// Regexp must be sticky.
 function splitMatches(text, regexp) {
+  // Regexp must be sticky.
+  regexp = new RegExp(regexp, "gm");
+
   let i = 0;
   const result = [];
 
@@ -44,7 +46,7 @@ function splitMatches(text, regexp) {
 
 // WikiWords must start with a capital, include at least two capitals,
 // and must include at least one lower case letter inbetween.
-const wikiWordsRegexp = /( |^)([A-Z][A-Za-z]*[a-z][A-Za-z]*[A-Z][A-Za-z]*)\b/gm;
+const wikiWordsRegexp = /( |^)([A-Z][A-Za-z]*[a-z][A-Za-z]*[A-Z][A-Za-z]*)\b/;
 
 function isWikiWord(s) {
   const match = wikiWordsRegexp.exec(s);

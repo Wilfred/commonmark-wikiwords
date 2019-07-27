@@ -59,6 +59,11 @@ describe("isWikiWord", () => {
     expect(isWikiWord("FooBar")).toBeTruthy();
   });
 
+  test("is a pure function", () => {
+    expect(isWikiWord("FooBar")).toBeTruthy();
+    expect(isWikiWord("FooBar")).toBeTruthy();
+  });
+
   test("abc", () => {
     expect(isWikiWord("abc")).toBeFalsy();
   });

@@ -59,6 +59,14 @@ describe("isWikiWord", () => {
     expect(isWikiWord("FooBar")).toBeTruthy();
   });
 
+  test("Yes: FooBBar", () => {
+    expect(isWikiWord("FooBBar")).toBeTruthy();
+  });
+
+  test("Yes: FBar", () => {
+    expect(isWikiWord("FBar")).toBeTruthy();
+  });
+
   test("No: abc", () => {
     expect(isWikiWord("abc")).toBeFalsy();
   });

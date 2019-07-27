@@ -45,8 +45,8 @@ function splitMatches(text, regexp) {
 }
 
 // WikiWords must start with a capital, include at least two capitals,
-// and must include at least one lower case letter inbetween.
-const wikiWordsRegexp = /( |^)([A-Z][A-Za-z]*[a-z][A-Za-z]*[A-Z][A-Za-z]*)\b/;
+// and must end with a lower case letter.
+const wikiWordsRegexp = /( |^)([A-Z][A-Za-z]*[A-Z][A-Za-z]*[a-z])\b/;
 
 function isWikiWord(s) {
   const match = wikiWordsRegexp.exec(s);

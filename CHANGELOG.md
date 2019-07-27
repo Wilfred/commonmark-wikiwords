@@ -1,4 +1,4 @@
-# Unreleased
+# 2.1
 
 Fixed an issue with `isWikiWord` where it returned a different result
 when called with the same string repeatedly.

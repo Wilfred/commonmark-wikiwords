@@ -73,10 +73,10 @@ function splitWikiWordLinks(node) {
 
 function transform(parsed) {
   const walker = parsed.walker();
-  let event, node;
+  let event;
 
   while ((event = walker.next())) {
-    node = event.node;
+    const node = event.node;
     if (event.entering && node.type === "text") {
       splitWikiWordLinks(node).forEach(newNode => {
         node.insertBefore(newNode);

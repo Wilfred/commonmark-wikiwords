@@ -39,6 +39,12 @@ describe("transform", () => {
     );
   });
 
+  test("No WikiWord in links", () => {
+    expect(transformAndRender("[WikiWord](http://foo.com)")).toBe(
+      '<p><a href="http://foo.com">WikiWord</a></p>'
+    );
+  });
+
   test("No WikiWord in inline code", () => {
     expect(transformAndRender("`WikiWord`")).toBe(
       "<p><code>WikiWord</code></p>"

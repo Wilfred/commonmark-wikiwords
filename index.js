@@ -75,13 +75,18 @@ function transform(parsed) {
   const walker = parsed.walker();
   let event;
 
+  let inLink = false;
+
   while ((event = walker.next())) {
     const node = event.node;
-    if (event.entering && node.type === "text") {
+    if (event.entering && node.type === "text" && !inLink) {
       splitWikiWordLinks(node).forEach(newNode => {
         node.insertBefore(newNode);
       });
       node.unlink();
+    }
+    if (node.type === "link") {
+      inLink = event.entering;
     }
   }
 

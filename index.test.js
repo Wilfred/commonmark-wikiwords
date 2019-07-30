@@ -1,3 +1,4 @@
+const fc = require("fast-check");
 const commonmark = require("commonmark");
 const isWikiWord = require("./index").isWikiWord;
 const transform = require("./index").transform;
@@ -30,6 +31,19 @@ describe("transform", () => {
   test("WikiWord in bold", () => {
     expect(transformAndRender("**WikiWord**")).toBe(
       '<p><strong><a href="WikiWord">WikiWord</a></strong></p>'
+    );
+  });
+
+  test("WikiWord arbitrary trailing text", () => {
+    fc.assert(
+      fc.property(fc.string(), s => {
+        const rendered = transformAndRender("WikiWord " + s);
+        return rendered.includes('<a href="WikiWord">WikiWord</a>');
+      })
+    );
+
+    expect(transformAndRender("WikiWord")).toBe(
+      '<p><a href="WikiWord">WikiWord</a></p>'
     );
   });
 

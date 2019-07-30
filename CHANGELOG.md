@@ -1,3 +1,7 @@
+# 2.2
+
+Fixed an issue with WikiWords occurring in link names.
+
 # 2.1
 
 Fixed an issue with `isWikiWord` where it returned a different result

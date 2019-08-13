@@ -6,12 +6,26 @@ function textNode(text) {
   return node;
 }
 
-function linkNode(text, url) {
-  const urlNode = new commonmark.Node("link", undefined);
-  urlNode.destination = url;
-  urlNode.appendChild(textNode(text));
+function htmlNode(text) {
+  const node = new commonmark.Node("html_inline", undefined);
+  node.literal = text;
+  return node;
+}
 
-  return urlNode;
+function linkNodes(opts) {
+  let className = null;
+  if (opts.callback) {
+    className = opts.callback(opts.text);
+  }
+
+  let openTagSrc;
+  if (className) {
+    openTagSrc = `<a class="${className}" href="${opts.url}">`;
+  } else {
+    openTagSrc = `<a href="${opts.url}">`;
+  }
+
+  return [htmlNode(openTagSrc), textNode(opts.text), htmlNode("</a>")];
 }
 
 function splitMatches(text, regexp) {
@@ -59,19 +73,27 @@ function isWikiWord(s) {
   return matchTextStart === 0;
 }
 
-function splitWikiWordLinks(node) {
+function splitWikiWordLinks(node, classCallback) {
   const parts = splitMatches(node.literal, wikiWordsRegexp);
 
-  return parts.map(part => {
+  let result = [];
+  parts.forEach(part => {
     if (part[1]) {
-      return linkNode(part[0], part[0]);
+      result = result.concat(
+        linkNodes({
+          url: part[0],
+          text: part[0],
+          callback: classCallback
+        })
+      );
     } else {
-      return textNode(part[0]);
+      result.push(textNode(part[0]));
     }
   });
+  return result;
 }
 
-function transform(parsed) {
+function transform(parsed, classCallback) {
   const walker = parsed.walker();
   let event;
 
@@ -80,7 +102,7 @@ function transform(parsed) {
   while ((event = walker.next())) {
     const node = event.node;
     if (event.entering && node.type === "text" && !inLink) {
-      splitWikiWordLinks(node).forEach(newNode => {
+      splitWikiWordLinks(node, classCallback).forEach(newNode => {
         node.insertBefore(newNode);
       });
       node.unlink();

@@ -3,12 +3,12 @@ const commonmark = require("commonmark");
 const isWikiWord = require("./index").isWikiWord;
 const transform = require("./index").transform;
 
-function transformAndRender(src) {
+function transformAndRender(src, classCallback) {
   const reader = new commonmark.Parser();
   const writer = new commonmark.HtmlRenderer();
   const parsed = reader.parse(src);
 
-  return writer.render(transform(parsed)).trim();
+  return writer.render(transform(parsed, classCallback)).trim();
 }
 
 describe("transform", () => {
@@ -102,5 +102,19 @@ describe("isWikiWord", () => {
   test("should be a pure function", () => {
     expect(isWikiWord("FooBar")).toBeTruthy();
     expect(isWikiWord("FooBar")).toBeTruthy();
+  });
+});
+
+describe("Adding classes", () => {
+  test("Callback specifies class", () => {
+    expect(transformAndRender("WikiWord", () => "myclass")).toBe(
+      '<p><a class="myclass" href="WikiWord">WikiWord</a></p>'
+    );
+  });
+
+  test("No class if callback returns null", () => {
+    expect(transformAndRender("WikiWord", () => null)).toBe(
+      '<p><a href="WikiWord">WikiWord</a></p>'
+    );
   });
 });

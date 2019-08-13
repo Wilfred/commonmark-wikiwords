@@ -32,3 +32,23 @@ strict compliance is useful, please file a bug.
 To avoid forming wikiwords, [C2 suggests embedding an empty
 string](http://wiki.c2.com/?SixSingleQuotes). You can do something
 similar in commonmark: `Foo<!-- -->Bar`.
+
+## Highlighting Nonexistent Links
+
+You can also pass a callback to style links based on their name. This
+is useful for styling links that don't yet exist.
+
+```javascript
+var commonmark = require("commonmark");
+var wikiwords = require("commonmark-wikiwords");
+
+var reader = new commonmark.Parser();
+var writer = new commonmark.HtmlRenderer();
+
+var parsed = reader.parse(src);
+var transformed = wikiwords.transform(parsed, name =>
+  name === "foo" ? "exciting-page" : null
+);
+
+var htmlSrc = writer.render(transformed);
+```

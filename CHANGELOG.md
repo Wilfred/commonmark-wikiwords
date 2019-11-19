@@ -1,3 +1,8 @@
+# 2.3
+
+Added a callback for styling links based on their name. This is useful
+for styling links that don't exist yet, a common wiki feature.
+
 # 2.2
 
 Fixed an issue with WikiWords occurring in link names.

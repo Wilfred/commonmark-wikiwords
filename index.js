@@ -58,9 +58,8 @@ function splitMatches(text, regexp) {
   return result;
 }
 
-// WikiWords must start with a capital, include at least two capitals,
-// and must end with a lower case letter.
-const wikiWordsRegexp = /( |^)([A-Z][A-Za-z]*[A-Z][A-Za-z]*[a-z])\b/;
+// WikiWords must start with a capital and must end with a lower case letter.
+const wikiWordsRegexp = /( |^)([A-Z][A-Za-z]*[a-z])\b/;
 
 function isWikiWord(s) {
   const match = wikiWordsRegexp.exec(s);
@@ -70,7 +69,22 @@ function isWikiWord(s) {
 
   const prefix = match[1];
   const matchTextStart = match.index + prefix.length;
-  return matchTextStart === 0;
+  if (matchTextStart !== 0) {
+    return false;
+  }
+
+  // WikiWords must contain at least two capitals, so 'Hello' isn't a WikiWord.
+  if ((s.match(/[A-Z]/g) || []).length < 2) {
+    return false;
+  }
+
+  // WikiWords must contain at least two lower case letters, so 'CPUs'
+  // isn't a wikiword.
+  if ((s.match(/[a-z]/g) || []).length < 2) {
+    return false;
+  }
+
+  return true;
 }
 
 function splitWikiWordLinks(node, classCallback) {
@@ -78,7 +92,7 @@ function splitWikiWordLinks(node, classCallback) {
 
   let result = [];
   parts.forEach(part => {
-    if (part[1]) {
+    if (part[1] && isWikiWord(part[0])) {
       result = result.concat(
         linkNodes({
           url: part[0],

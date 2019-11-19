@@ -1,3 +1,8 @@
+# 2.4
+
+Tweaked WikiWord logic so a single lowercase letter is not a
+WikiWord. This prevents 'CPUs' being linkified.
+
 # 2.3
 
 Added a callback for styling links based on their name. This is useful

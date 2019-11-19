@@ -92,7 +92,11 @@ describe("isWikiWord", () => {
   });
 
   test("No: ABC", () => {
-    expect(isWikiWord("abc")).toBeFalsy();
+    expect(isWikiWord("ABC")).toBeFalsy();
+  });
+
+  test("No: ABCs", () => {
+    expect(isWikiWord("ABCs")).toBeFalsy();
   });
 
   test("No: leading whitespace", () => {

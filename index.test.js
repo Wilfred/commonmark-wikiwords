@@ -3,6 +3,11 @@ const commonmark = require("commonmark");
 const isWikiWord = require("./index").isWikiWord;
 const transform = require("./index").transform;
 
+function removeZeroWidthSpaces(txt) {
+  const ZERO_WIDTH_SPACE = "\u200B";
+  return txt.replace(ZERO_WIDTH_SPACE, "");
+}
+
 function transformAndRender(src, classCallback) {
   const reader = new commonmark.Parser();
   const writer = new commonmark.HtmlRenderer();
@@ -17,19 +22,19 @@ describe("transform", () => {
   });
 
   test("Basic WikiWord", () => {
-    expect(transformAndRender("WikiWord")).toBe(
+    expect(removeZeroWidthSpaces(transformAndRender("WikiWord"))).toBe(
       '<p><a href="WikiWord">WikiWord</a></p>'
     );
   });
 
   test("WikiWord in prose", () => {
-    expect(transformAndRender("Hello WikiWord")).toBe(
+    expect(removeZeroWidthSpaces(transformAndRender("Hello WikiWord"))).toBe(
       '<p>Hello <a href="WikiWord">WikiWord</a></p>'
     );
   });
 
   test("WikiWord in bold", () => {
-    expect(transformAndRender("**WikiWord**")).toBe(
+    expect(removeZeroWidthSpaces(transformAndRender("**WikiWord**"))).toBe(
       '<p><strong><a href="WikiWord">WikiWord</a></strong></p>'
     );
   });
@@ -37,12 +42,14 @@ describe("transform", () => {
   test("WikiWord arbitrary trailing text", () => {
     fc.assert(
       fc.property(fc.string(), s => {
-        const rendered = transformAndRender("WikiWord " + s);
+        const rendered = removeZeroWidthSpaces(
+          transformAndRender("WikiWord " + s)
+        );
         return rendered.includes('<a href="WikiWord">WikiWord</a>');
       })
     );
 
-    expect(transformAndRender("WikiWord")).toBe(
+    expect(removeZeroWidthSpaces(transformAndRender("WikiWord"))).toBe(
       '<p><a href="WikiWord">WikiWord</a></p>'
     );
   });
@@ -111,14 +118,14 @@ describe("isWikiWord", () => {
 
 describe("Adding classes", () => {
   test("Callback specifies class", () => {
-    expect(transformAndRender("WikiWord", () => "myclass")).toBe(
-      '<p><a class="myclass" href="WikiWord">WikiWord</a></p>'
-    );
+    expect(
+      removeZeroWidthSpaces(transformAndRender("WikiWord", () => "myclass"))
+    ).toBe('<p><a class="myclass" href="WikiWord">WikiWord</a></p>');
   });
 
   test("No class if callback returns null", () => {
-    expect(transformAndRender("WikiWord", () => null)).toBe(
-      '<p><a href="WikiWord">WikiWord</a></p>'
-    );
+    expect(
+      removeZeroWidthSpaces(transformAndRender("WikiWord", () => null))
+    ).toBe('<p><a href="WikiWord">WikiWord</a></p>');
   });
 });

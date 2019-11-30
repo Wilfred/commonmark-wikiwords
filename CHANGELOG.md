@@ -1,3 +1,8 @@
+# 3.0
+
+The transform now inserts zero width spaces in WikiWord links, so long
+links break more nicely in browsers.
+
 # 2.4
 
 Tweaked WikiWord logic so a single lowercase letter is not a

@@ -1,5 +1,13 @@
 const commonmark = require("commonmark");
 
+// Add zero width spaces to CamelCaseStrings so browsers know where to
+// break lines.
+function addZeroWidthBreaks(txt) {
+  const ZERO_WIDTH_SPACE = "\u200B";
+  // Look for transitions from lowercase to uppercase.
+  return txt.replace(/([a-z])([A-Z])/g, "$1" + ZERO_WIDTH_SPACE + "$2");
+}
+
 function textNode(text) {
   const node = new commonmark.Node("text", undefined);
   node.literal = text;
@@ -25,7 +33,11 @@ function linkNodes(opts) {
     openTagSrc = `<a href="${opts.url}">`;
   }
 
-  return [htmlNode(openTagSrc), textNode(opts.text), htmlNode("</a>")];
+  return [
+    htmlNode(openTagSrc),
+    textNode(addZeroWidthBreaks(opts.text)),
+    htmlNode("</a>")
+  ];
 }
 
 function splitMatches(text, regexp) {

@@ -8,12 +8,12 @@ function removeZeroWidthSpaces(txt) {
   return txt.replace(ZERO_WIDTH_SPACE, "");
 }
 
-function transformAndRender(src, classCallback) {
+function transformAndRender(src, classCallback, exclude) {
   const reader = new commonmark.Parser();
   const writer = new commonmark.HtmlRenderer();
   const parsed = reader.parse(src);
 
-  return writer.render(transform(parsed, classCallback)).trim();
+  return writer.render(transform(parsed, classCallback, exclude)).trim();
 }
 
 describe("transform", () => {
@@ -78,6 +78,12 @@ describe("transform", () => {
 
   test("Trailing numbers aren't wikiwords", () => {
     expect(transformAndRender("FooBar1")).toBe("<p>FooBar1</p>");
+  });
+
+  test("Respect the exclude list", () => {
+    expect(transformAndRender("FooBar", undefined, ["FooBar"])).toBe(
+      "<p>FooBar</p>"
+    );
   });
 });
 

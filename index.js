@@ -99,12 +99,12 @@ function isWikiWord(s) {
   return true;
 }
 
-function splitWikiWordLinks(node, classCallback) {
+function splitWikiWordLinks(node, classCallback, exclude) {
   const parts = splitMatches(node.literal, wikiWordsRegexp);
 
   let result = [];
   parts.forEach(part => {
-    if (part[1] && isWikiWord(part[0])) {
+    if (part[1] && isWikiWord(part[0]) && !exclude.includes(part[0])) {
       result = result.concat(
         linkNodes({
           url: part[0],
@@ -119,7 +119,9 @@ function splitWikiWordLinks(node, classCallback) {
   return result;
 }
 
-function transform(parsed, classCallback) {
+function transform(parsed, classCallback, exclude) {
+  exclude = exclude || [];
+
   const walker = parsed.walker();
   let event;
 
@@ -128,7 +130,7 @@ function transform(parsed, classCallback) {
   while ((event = walker.next())) {
     const node = event.node;
     if (event.entering && node.type === "text" && !inLink) {
-      splitWikiWordLinks(node, classCallback).forEach(newNode => {
+      splitWikiWordLinks(node, classCallback, exclude).forEach(newNode => {
         node.insertBefore(newNode);
       });
       node.unlink();

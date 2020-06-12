@@ -1,3 +1,8 @@
+# 3.1
+
+It's now possible to provide an exclusion list of words that should
+not be considered WikiWords.
+
 # 3.0
 
 The transform now inserts zero width spaces in WikiWord links, so long
